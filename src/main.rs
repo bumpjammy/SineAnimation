@@ -3,7 +3,7 @@ mod app_loop;
 mod rendering;
 mod event_handling;
 
-pub(crate) const WIDTH: usize = 40;
+pub(crate) const WIDTH: usize = 80;
 pub(crate) const HEIGHT: usize = 40;
 
 fn main() {
