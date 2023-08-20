@@ -4,7 +4,7 @@ use sdl2::sys::SDL_Point;
 use crate::{HEIGHT, WIDTH};
 
 pub(crate) fn render(canvas: &mut WindowCanvas, sine_points: &mut Vec<(SDL_Point, bool)>, ball_pos: &mut (i32, i32), ball_speed: &mut i32, frame_count: u32, is_laggy: bool) {
-    canvas.set_draw_color(Color::RGB(255, 255, 255));
+    canvas.set_draw_color(Color::RGB(100, 100, 100));
     canvas.clear();
     render_ball(canvas, ball_pos, ball_speed, frame_count, is_laggy);
     add_sine_point(sine_points, ball_pos, is_laggy);
