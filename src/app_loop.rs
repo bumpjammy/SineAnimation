@@ -9,7 +9,7 @@ pub(crate) fn run_app_loop(canvas: &mut WindowCanvas, event_pump: &mut EventPump
     let mut frame_count: u32 = 0;
 
     let mut is_laggy = false;
-    let mut sine_points: Vec<SDL_Point> = Vec::new();
+    let mut sine_points: Vec<(SDL_Point, bool)> = Vec::new();
 
     'running: loop {
         rendering::render(&mut *canvas, &mut sine_points, &mut ball_pos, &mut ball_speed, frame_count, is_laggy);
