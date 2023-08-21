@@ -32,7 +32,7 @@ fn update_speed(ball_pos: &mut (i32, i32), ball_speed: &mut i32, frame_count: u3
     let tick_duration = 0.05;
     let speed = 1.5;
     let magnitude = 300.0; // A lot bigger than it would be in spigot plugin
-    let expected_height = (time * speed + tick_duration).sin() * magnitude;
+    let expected_height = (speed * time + tick_duration).sin() * magnitude;
     let mut new_speed = ((expected_height - current_height)/(1.0/tick_duration)) as i32;
     if new_speed > 20 { // Cap speed so lag doesn't make it go too fast
         new_speed = 20;
