@@ -31,16 +31,15 @@ fn update_speed(ball_pos: &mut (i32, i32), ball_speed: &mut i32, frame_count: u3
     let time = frame_count as f64 / 60.0; // Would be 20 tps in spigot plugin
     let tick_duration = 0.05;
     let speed = 1.5;
-    let magnitude = 300.0; // A lot bigger than it would be in spigot plugin
-    let expected_height = (time * speed + tick_duration).sin() * magnitude;
-    let mut new_speed = ((expected_height - current_height)/(1.0/tick_duration)) as i32;
-    if new_speed > 20 { // Cap speed so lag doesn't make it go too fast
-        new_speed = 20;
+    let magnitude = 3.0; // A lot bigger than it would be in spigot plugin
+    let mut new_speed = (magnitude * speed * (time * speed + tick_duration).cos()); // Lag causes it to drift away from the sine wave el oh el
+    if new_speed > 20.0 { // Cap speed so lag doesn't make it go too fast
+        new_speed = 20.0;
     }
-    if new_speed < -20 {
-        new_speed = -20;
+    if new_speed < -20.0 {
+        new_speed = -20.0;
     }
-    *ball_speed = new_speed;
+    *ball_speed = new_speed as i32;
 }
 
 fn get_new_ball_pos(ball_pos: &mut (i32, i32), ball_speed: &mut i32) {
@@ -69,4 +68,8 @@ fn render_sine_points(canvas: &mut WindowCanvas, sine_points: &mut Vec<(SDL_Poin
         }
         canvas.draw_line(sdl2::rect::Point::new(point1.0.x, point1.0.y + (HEIGHT * 10) as i32), sdl2::rect::Point::new(point2.0.x, point2.0.y + (HEIGHT * 10) as i32)).unwrap();
     }
+
+    canvas.set_draw_color(Color::RGB(0, 255, 0));
+    canvas.draw_line(sdl2::rect::Point::new(0, (HEIGHT * 10 + 150) as i32), sdl2::rect::Point::new(WIDTH as i32 * 20, (HEIGHT * 10 + 150) as i32)).unwrap();
+    canvas.draw_line(sdl2::rect::Point::new(0, (HEIGHT * 10 - 150) as i32), sdl2::rect::Point::new(WIDTH as i32 * 20, (HEIGHT * 10 - 150) as i32)).unwrap();
 }
