@@ -14,12 +14,12 @@ pub(crate) fn render(canvas: &mut WindowCanvas, sine_points: &mut Vec<(SDL_Point
 
 fn render_ball(canvas: &mut WindowCanvas, ball_pos: &mut (i32, i32), ball_speed: &mut i32, frame_count: u32, is_laggy: bool) {
     canvas.set_draw_color(Color::RGB(255, 0, 0));
-    update_speed(ball_pos, ball_speed, frame_count, is_laggy);
+    update_speed(ball_speed, frame_count, is_laggy);
     get_new_ball_pos(ball_pos, ball_speed);
     canvas.fill_rect(sdl2::rect::Rect::new(ball_pos.0, ball_pos.1 + (HEIGHT * 10 - 50) as i32, 100, 100)).unwrap();
 }
 
-fn update_speed(ball_pos: &mut (i32, i32), ball_speed: &mut i32, frame_count: u32, is_laggy: bool) {
+fn update_speed(ball_speed: &mut i32, frame_count: u32, is_laggy: bool) {
     if frame_count % 3 != 0 {
         return;
     }
@@ -27,7 +27,6 @@ fn update_speed(ball_pos: &mut (i32, i32), ball_speed: &mut i32, frame_count: u3
     if is_laggy && rand::random::<f64>() < 0.33 {
         return;
     }
-    let current_height = ball_pos.1 as f64; // Would get current location of entity or something in spigot plugin
     let time = frame_count as f64 / 60.0; // Would be 20 tps in spigot plugin
     let tick_duration = 0.05;
     let speed = 1.5;
